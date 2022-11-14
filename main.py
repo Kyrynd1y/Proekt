@@ -189,7 +189,7 @@ class SAPER:
         indexes.remove(exclude_number)
         shuffle(indexes)
         return indexes[:SAPER.MINES]
-    # SA
+    # SAA
 
 
 game = SAPER()
