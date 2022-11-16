@@ -1,6 +1,10 @@
+import sys
 import tkinter as tk
+from PyQt5 import *
 from random import shuffle
 from tkinter.messagebox import showinfo
+
+from PyQt5.QtWidgets import QGridLayout, QPushButton, QWidget, QApplication
 
 colors = {
     1: 'blue',
@@ -11,12 +15,10 @@ colors = {
 }
 
 
-class Button(tk.Button):
-    def __repr__(self):
-        return f'My button {self.x} {self.y} {self.number} ({self.is_mine})'
+class Button(QPushButton):
 
     def __init__(self, master, x, y, number=0, *args, **kwargs):
-        super(Button, self).__init__(master, width=3, font='Calibri 15 bold', *args, **kwargs)
+        super(Button, self).__init__()
         self.x = x
         self.y = y
         self.number = number
@@ -24,8 +26,10 @@ class Button(tk.Button):
         self.count_mines = 0
         self.is_open = False
 
+        QPushButton.geometry()
 
-class SAPER:
+
+class SAPER(QWidget):
     main_window = tk.Tk()
     ROW = 10
     COLUMNS = 10
@@ -35,14 +39,19 @@ class SAPER:
     IS_FIRST_CLICK = True
 
     def __init__(self):
+        super().__init__()
+
         self.buttons = []
 
-        for i in range(SAPER.ROW + 2):
+        lyt = QGridLayout(self)
+        lyt.setHorizontalSpacing(1)
+        lyt.setVerticalSpacing(1)
+        self.setLayout(lyt)
+        for r in range(SAPER.ROW + 2):
             temp = []
-            for j in range(SAPER.COLUMNS + 2):
-                btn = Button(SAPER.main_window, x=i, y=j)
-                btn.config(command=lambda button=btn: self.click(button))
-                btn.bind('<Button-3>', self.right_click)
+            for c in range(SAPER.COLUMNS + 2):
+                btn = Button(self, x=r, y=c)
+                self.layout().addWidget(btn, r, c)
                 temp.append(btn)
             self.buttons.append(temp)
 
@@ -192,5 +201,12 @@ class SAPER:
         return indexes[:SAPER.MINES]
 
 
-game = SAPER()
-game.start_game()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = SAPER()
+    ex.show()
+    sys.exit(app.exec())
+
+#
+# game = SAPER()
+# game.start_game()
