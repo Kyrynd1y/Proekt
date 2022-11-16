@@ -31,6 +31,7 @@ class SAPER:
     COLUMNS = 10
     MINES = 10
     IS_GAME_OVER = False
+    IS_WIN = False
     IS_FIRST_CLICK = True
 
     def __init__(self):
@@ -189,7 +190,6 @@ class SAPER:
         indexes.remove(exclude_number)
         shuffle(indexes)
         return indexes[:SAPER.MINES]
-
 
 
 game = SAPER()
