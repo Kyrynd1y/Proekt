@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QGridLayout
 
 class MyButton(QPushButton):
     def __init__(self, x, y, number):
-        super(MyButton, self).__init__(self, x, y, number)
+        super(MyButton, self).__init__()
         self.x = x
         self.y = y
         self.number = number
@@ -33,7 +33,7 @@ class MineSweeper(QWidget):
         for i in range(MineSweeper.ROW):
             temp = []
             for j in range(MineSweeper.COLUMN):
-                btn = MyButton(self, x=i, y=j, number=count)
+                btn = MyButton(x=i, y=j, number=count)
                 self.layout().addWidget(btn, i, j)
                 temp.append(btn)
                 count += 1
